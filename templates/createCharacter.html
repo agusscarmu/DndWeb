@@ -1,0 +1,88 @@
+{% extends "./base.html" %}
+{% block body %}
+    <div class="ventanaCreacion">
+        <form class="creacionPersonaje" method="POST" action="/insertar">
+        
+            <label for="nombre">Nombre:</label>
+            <input type="text" id="nombre" name="nombre" required><br>
+    
+            <label for="raza">Raza:</label>
+                <select id="raza" name="raza" required>
+                    <!-- Agrega más opciones según sea necesario -->
+                </select><br>
+            <div id="subrazas-container"></div>
+            <label>Sexo:</label>
+            <div class="sexo">   
+                <input type="radio" id="femenino" name="sexo" value="femenino" required>
+                <label for="femenino">Femenino</label>
+                <input type="radio" id="masculino" name="sexo" value="masculino" required>
+                <label for="masculino">Masculino</label><br>
+            </div>
+
+            <label for="raza">Clase:</label>
+            <select id="clase" name="clase">
+                <option value="humano">Paladin</option>
+                <option value="elfo">Picaro</option>
+                <option value="enano">Brujo</option>
+                <!-- Agrega más opciones según sea necesario -->
+            </select><br>
+            
+            <div class="puntos">
+                <label for="puntos">Puntos:</label>
+                <span id="puntosTotal"></span><br>
+                <label for="constitucion">Constitución:</label>
+                <div class="incrementer">
+                    <button type="button" class="menosBoton" data-caracteristica="constitucion">-</button>
+                    <input type="number" id="constitucion" name="constitucion" value="8" min="8" max="15" required>
+                    <button type="button" class="masBoton" data-caracteristica="constitucion">+</button>
+                    <span id="bonifConstitucion"></span>
+                </div><br>
+                <label for="destreza">Destreza:</label>
+                <div class="incrementer">
+                    <button type="button" class="menosBoton" data-caracteristica="destreza">-</button>
+                    <input type="number" id="destreza" name="destreza" value="8" min="8" max="15" required>
+                    <button type="button" class="masBoton" data-caracteristica="destreza">+</button>
+                    <span id="bonifDestreza"></span>
+                </div><br>
+                <label for="fuerza">Fuerza:</label>
+                <div class="incrementer">
+                    <button type="button" class="menosBoton" data-caracteristica="fuerza">-</button>
+                    <input type="number" id="fuerza" name="fuerza" value="8" min="8" max="15" required>
+                    <button type="button" class="masBoton" data-caracteristica="fuerza">+</button>
+                    <span id="bonifFuerza"></span>
+                </div><br>
+                <label for="inteligencia">Inteligencia:</label>
+                <div class="incrementer">
+                    <button type="button" class="menosBoton" data-caracteristica="inteligencia">-</button>
+                    <input type="number" id="inteligencia" name="inteligencia" value="8" min="8" max="15" required>
+                    <button type="button" class="masBoton" data-caracteristica="inteligencia">+</button>
+                    <span id="bonifInteligencia"></span>
+                </div><br>
+                <label for="sabiduria">Sabiduria:</label>
+                <div class="incrementer">
+                    <button type="button" class="menosBoton" data-caracteristica="sabiduria">-</button>
+                    <input type="number" id="sabiduria" name="sabiduria" value="8" min="8" max="15" required>
+                    <button type="button" class="masBoton" data-caracteristica="sabiduria">+</button>
+                    <span id="bonifSabiduria"></span>
+                </div><br>
+                <label for="carisma">Carisma:</label>
+                <div class="incrementer">
+                    <button type="button" class="menosBoton" data-caracteristica="carisma">-</button>
+                    <input type="number" id="carisma" name="carisma" value="8" min="8" max="15" required>
+                    <button type="button" class="masBoton" data-caracteristica="carisma">+</button>
+                    <span id="bonifCarisma"></span>
+                </div><br>
+            </div>
+            
+
+
+            <label for="descripcion">Descripción:</label><br>
+            <textarea id="descripcion" name="descripcion" rows="4" cols="50"></textarea><br>
+    
+            <input type="submit" value="Crear Personaje">
+        
+    </form>
+    </div>
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+    <script type="module" src="{{ url_for('static', filename='js/creacionPersonaje.js') }}"></script>
+{% endblock %}

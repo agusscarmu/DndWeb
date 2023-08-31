@@ -1,0 +1,23 @@
+{% extends "./base.html" %}
+{% block body %}
+    <div class="seccionPersonaje">
+        <div class="personajes" id="zonaPersonajes">
+            <a href="/pgs/character.html">
+                <div class="tarjetapj" id="tarjetaPj">
+                    <div class="imgpj" id="imagenPj">
+                        <img class="imagen" src="{{ url_for('static', filename='images/elfo-oscuro-ojos-morados-sosteniendo-espada-dos-manos_398492-1536.jpg.avif') }}" height="100%" width="100%">
+                    </div>
+                    <div class="infopj">
+                        <h3>Nombre: </h3>
+                        <h3>Raza: </h3>
+                        <h3>Vida: </h3>
+                        <h3>Mana: </h3>
+                        <h3>Clase: </h3>
+                        <h3>Nivel: </h3>
+                    </div>
+                </div>
+            </a>
+        </div>
+    </div>
+
+{% endblock %}
