@@ -3,13 +3,13 @@
 <div class="seccionPersonaje">
         {% for personaje in personajes %}
         <div class="personajes" id="zonaPersonajes">
-            <a href="/pgs/character.html">
+            <a href="personaje/{{personaje.0}}" class="popup-link" data-id="{{personaje.0}}">
                 <div class="tarjetapj" id="tarjetaPj">
                     <div class="imgpj" id="imagenPj">
-                        {% if personaje.16 is not none %}
-                            <img class="imagen" src="{{ url_for('static', filename='imagenesPersonajes/' + personaje.15) }}" height="100%" width="100%">
+                        {% if personaje.17 is not none %}
+                            <img class="imagen" src="{{ url_for('static', filename='imagenesPersonajes/' + personaje.16) }}" height="100%" width="100%">
                         {% else %}
-                            {% if personaje.15 == "masculino" %}
+                            {% if personaje.16 == "masculino" %}
                                 <img class="imagen" src="{{ url_for('static', filename='imagenesPersonajes/' + personaje.2 + 'm.jpg') }}" height="100%" width="100%">
                             {% else %}
                                 <img class="imagen" src="{{ url_for('static', filename='imagenesPersonajes/' + personaje.2 + 'f.jpg') }}" height="100%" width="100%">
@@ -19,10 +19,10 @@
                     <div class="infopj">
                         <h3>Nombre: {{personaje.1}}</h3> 
                         <h3>Raza: {{personaje.2}}</h3>
-                        <h3>Vida: {{personaje.13}}</h3>
-                        <h3>Mana: {{personaje.14}}</h3>
-                        <h3>Clase: {{personaje.3}}</h3>
-                        <h3>Nivel: {{personaje.4}}</h3>
+                        <h3>Vida: {{personaje.14}}</h3>
+                        <h3>Mana: {{personaje.15}}</h3>
+                        <h3>Clase: {{personaje.4}}</h3>
+                        <h3>Nivel: {{personaje.5}}</h3>
                     </div>
                 </div>
             </a>

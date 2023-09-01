@@ -1,55 +1,79 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Dnd Web</title>
-    <link rel="stylesheet" href="/css/style.css">
-</head>
-<body class="container">
-    <nav>
-        <div class="navbarInicial">
-            <ul >
-                <li></li>
-                <li class="elementosMenu" id="logoDado">
-                    <a href="/index.html">
-                        <img src="/images/d20-2699387_1280-3.webp" width="70" height="75" alt="">
-                    </a>
-                </li>
-                <li class = "elementosMenu">
-                    <a href="/login.html">iniciar</a>
-                </li>
+{% extends "./base.html" %}
+{% block body %}
+<div class="card">
+    <div class="character-details">
+        <h1 class="text-center">Detalles del Personaje</h1>
+
+        <div class="character-image">
+            {% if personaje.imagen is not none %}
+                <img src="{{ url_for('static', filename='imagenesPersonajes/' + personaje.imagen) }}" alt="Imagen del Personaje">
+            {% else %}
+                {% if personaje.sexo == "masculino" %}
+                    <img src="{{ url_for('static', filename='imagenesPersonajes/' + personaje.raza + 'm.jpg') }}" alt="Imagen del Personaje">
+                {% else %}
+                    <img src="{{ url_for('static', filename='imagenesPersonajes/' + personaje.raza + 'f.jpg') }}" alt="Imagen del Personaje">
+                {% endif %}
+            {% endif %}
+        </div>
+        
+        <div class="character-info">
+            <h2>Información del Personaje</h2>
+            <ul>
+                <li>Nombre: {{ personaje.nombre }}</li>
+                <li>Raza: {{ personaje.raza }}</li>
+                <li>Clase: {{ personaje.clase }}</li>
+                <li>Nivel: {{ personaje.nivel }}</li>
+                <!-- Agrega más detalles del personaje aquí -->
             </ul>
         </div>
-    </nav>
-    <div class="menuSecundario">
 
-            <ul class = "listaComandos">
-                <li class = "elementosMenu">
-                    <a href="/index.html">Inicio</a>
-                </li>
-                <li class = "elementosMenu">
-                    <a href="/pgs/characters.html">Personajes</a>
-                </li>
-                <li class = "elementosMenu">
-                    <a href="/pgs/crateCharacter.html">Crear Personaje</a>
-                </li>
-                <li class = "elementosMenu">
-                    <a href="/pgs/characters.html">Eliminar Personaje</a>
-                </li>
-                <li class = "elementosMenu">
-                    <a href="/elems/D&D5Manual.pdf">Reglamento</a>
-                </li>
+        <div class="race-bonuses">
+            <h2>Atributos</h2>
+            <ul>
+                {% for atributoPersonaje, bonificacionPersonaje in atributosPersonaje.items() %}
+                    {% set bonificacionRaza = bonificacionesRaza[atributoPersonaje] %}
+                    {% set bonificacionClase = bonificacionesClase[atributoPersonaje] %}
+                    {% set bonificacionTotal = bonificacionRaza + bonificacionClase %}
+                    <li>{{ atributoPersonaje }}: {{ bonificacionPersonaje }} + {{bonificacionTotal }}</li>
+                {% endfor %}
             </ul>
+            
+        </div>
+
+        <div class="class-bonuses">
+            <h2>Bonificaciones de Clase</h2>
+            <ul>
+                {% for atributo, bonificacion in bonificacionesClase.items() %}
+                    <li>{{ atributo }}: {{ bonificacion }}</li>
+                {% endfor %}
+            </ul>
+        </div>
+
+        <div class="abilities">
+            <h2>Competencias</h2>
+            <ul>
+                {% for competencia in competencias %}
+                    <li>{{ competencia }}</li>
+                {% endfor %}
+            </ul>
+        </div>
+
+        <div class="hit-dice">
+            <h2>Dado de Vida</h2>
+            <p>{{ dado }}</p>
+        </div>
+
+        <div class="class-special-abilities">
+            <h2>Habilidades Especiales de Clase</h2>
+            <ul>
+                {% for habilidad in habilidadesEspeciales %}
+                    <li><strong>{{ habilidad.nombre }}</strong>: {{ habilidad.descripcion }}</li>
+                {% endfor %}
+            </ul>
+        </div>
 
     </div>
 
-    <div id="textP">
-        <h2 id="bw">Personajes</h2>
-    </div>
 
-    
-    
-    <script src="/js/script.js"></script>
-</body>
-</html>
+</div>
+{% endblock %}
