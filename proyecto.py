@@ -1,4 +1,5 @@
-from flask import Flask, render_template
+from flask import Flask, render_template, send_from_directory
+import os
 
 app=Flask(__name__)
 
@@ -14,7 +15,12 @@ def personajes():
 def creacion():
     return render_template('createCharacter.html')
 
+@app.route('/reglamento')
+def reglamento():
+    return send_from_directory(os.path.join(app.root_path, 'static'), 'elems/D&D5Manual.pdf')
+
 
 if __name__ == '__main__':
     app.run(debug=True)
 
+# http://127.0.0.1:5000
