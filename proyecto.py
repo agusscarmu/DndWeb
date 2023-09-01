@@ -1,4 +1,4 @@
-from flask import Flask, render_template, request, send_from_directory
+from flask import Flask, render_template, request, send_from_directory,url_for, redirect
 from flask_mysqldb import MySQL
 from razas_data import razas
 from subrazas_data import subrazas
@@ -146,6 +146,20 @@ def personajes():
 @app.route('/creacion')
 def creacion():
     return render_template('createCharacter.html')
+
+@app.route('/eliminar')
+def eliminar():
+    cur = mysql.connection.cursor()
+    cur.execute('SELECT * FROM personaje')
+    data = cur.fetchall()
+    return render_template('eliminar.html', personajes = data)
+
+@app.route('/eliminar/<id>')
+def eliminarPersonaje(id):
+    cur = mysql.connection.cursor()
+    cur.execute('DELETE FROM personaje WHERE id = %s',[id])
+    mysql.connection.commit()
+    return redirect(url_for('eliminar'))
 
 @app.route('/reglamento')
 def reglamento():

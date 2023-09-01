@@ -134,9 +134,9 @@ body::before {
 .seccionPersonaje{
     display: flex;
     justify-content: center;
+    flex-wrap: wrap;
     width: 100vw; /* Ancho de la ventana */
     height: 100vh; /* Altura de la ventana */
-
     top: 0;
     left: 0;
 }
@@ -160,7 +160,7 @@ body::before {
     margin-top: 3%;
     flex-direction: row;
     justify-content: space-around;
-    width: 100%;
+    width: 30%;
     height: auto;
 }
 .tarjetapj{
@@ -279,4 +279,103 @@ strong {
     font-weight: bold;
 }
 
+.contenedorEliminacion{
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    padding-top: 3%;
+    padding-bottom: 3%;
+
+}
+
+.eliminacionPersonaje {
+    display: flex;
+    flex-direction: column;
+    width: 70%; /* Ancho del formulario */
+    padding: 20px;
+    background-color: #fff;
+    /* justify-content: center; */
+    border-radius: 10px;
+    box-shadow: 0px 2px 4px rgba(0, 0, 0, 0.1);
+    background-color: rgb(223, 223, 223, 0.9);
+}
+
+.imgElim{
+
+    display: flex;
+    width: 10vh;
+    height: 10vh; /* Establece la altura deseada */
+    border-radius: 10px;
+    padding-left: 1vh;
+    position: absolute;
+}
+
+.imgElim img{
+    width: 100%;
+    height: 100%;
+    object-fit: cover; /* Ajusta la imagen para llenar el contenedor */
+    /* border-radius: 10px; */
+
+    box-shadow: 10px 10px 20px rgba(0, 0, 0, 1);
+}
+
+.datosPersonajeElim{
+    display: flex;
+    flex-direction: column;
+    /* align-items: center; */
+    justify-content: center;
+    padding-top: 3%;
+    padding-bottom: 3%;
+
+    box-shadow: #000000 0px 0px 7px 0px;
+    height: 7vh;
+    width: 100%;
+    margin-bottom: 3%;
+    border-radius: 10px;
+}
+
+.eliminacionPersonaje .infoPjElim{
+    display: flex;
+    position: relative;
+    /* flex-direction: row; */
+    justify-content: space-between;
+    width: 80%;
+    /* margin-left: 10%; */
+    margin-left: 10%;
+
+}
+
+.listaElim{
+    list-style-type: none;
+    margin: 0;
+    padding: 0;
+}
+
+.tituloElim{
+    font-size: 35px;
+    font-weight: bold;
+    margin-bottom: 3%;
+    display: flex;
+    justify-content: center;
+}
+
+.botonEliminar{
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+    align-items: center;
+    background-color: rgba(0, 0, 0, 0);
+    border: #000000 1px solid;
+    border-radius: 10px;
+    height: 5vh;
+    width: 10vh;
+    margin-top: 1vh;
+}
+
+.botonEliminar a{
+    text-decoration: none;
+    color: #000000;
+    font-size: 15px;
+}
 

@@ -1,0 +1,44 @@
+{% extends "./base.html" %}
+{% block body %}
+<div class = "contenedorEliminacion">
+    <div class="eliminacionPersonaje">
+
+        <h1 class="tituloElim">Eliminar Personajes</h1>
+        
+            {% for personaje in personajes %}
+            <div class="listaElim">
+                <div class = "datosPersonajeElim">
+                <div class="imgElim">
+
+                    {% if personaje.17 is not none %}
+                    <img class="imagen" src="{{ url_for('static', filename='imagenesPersonajes/' + personaje.16) }}" height="100%" width="100%">
+                        {% else %}
+                        {% if personaje.16 == "masculino" %}
+                        <img class="imagen" src="{{ url_for('static', filename='imagenesPersonajes/' + personaje.2 + 'm.jpg') }}" height="100%" width="100%">
+                        {% else %}
+                        <img class="imagen" src="{{ url_for('static', filename='imagenesPersonajes/' + personaje.2 + 'f.jpg') }}" height="100%" width="100%">
+                        {% endif %}
+                    {% endif %}
+                </div>
+                <div class="infoPjElim">
+
+                    <h2>{{ personaje.1 }}</h2>
+                    <h2>Raza: {{ personaje.2 }}</h2>
+                    <h2>Clase: {{ personaje.4 }}</h2>
+                    <!-- Agrega más detalles del personaje si es necesario -->
+                
+                    <div class="botonEliminar">
+                        <a href="eliminar/{{personaje.0}}" data-id="{{personaje.0}}">
+                            Eliminar
+                        </a>
+                    </div>
+                   
+                </div>
+                </div>
+            </div>
+            {% endfor %}
+       
+    </div>
+
+</div>
+{% endblock %}
