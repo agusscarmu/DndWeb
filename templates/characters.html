@@ -1,23 +1,33 @@
 {% extends "./base.html" %}
 {% block body %}
-    <div class="seccionPersonaje">
+<div class="seccionPersonaje">
+        {% for personaje in personajes %}
         <div class="personajes" id="zonaPersonajes">
             <a href="/pgs/character.html">
                 <div class="tarjetapj" id="tarjetaPj">
                     <div class="imgpj" id="imagenPj">
-                        <img class="imagen" src="{{ url_for('static', filename='images/elfo-oscuro-ojos-morados-sosteniendo-espada-dos-manos_398492-1536.jpg.avif') }}" height="100%" width="100%">
+                        {% if personaje.16 is not none %}
+                            <img class="imagen" src="{{ url_for('static', filename='imagenesPersonajes/' + personaje.15) }}" height="100%" width="100%">
+                        {% else %}
+                            {% if personaje.15 == "masculino" %}
+                                <img class="imagen" src="{{ url_for('static', filename='imagenesPersonajes/' + personaje.2 + 'm.jpg') }}" height="100%" width="100%">
+                            {% else %}
+                                <img class="imagen" src="{{ url_for('static', filename='imagenesPersonajes/' + personaje.2 + 'f.jpg') }}" height="100%" width="100%">
+                            {% endif %}
+                        {% endif %}
                     </div>
                     <div class="infopj">
-                        <h3>Nombre: </h3>
-                        <h3>Raza: </h3>
-                        <h3>Vida: </h3>
-                        <h3>Mana: </h3>
-                        <h3>Clase: </h3>
-                        <h3>Nivel: </h3>
+                        <h3>Nombre: {{personaje.1}}</h3> 
+                        <h3>Raza: {{personaje.2}}</h3>
+                        <h3>Vida: {{personaje.13}}</h3>
+                        <h3>Mana: {{personaje.14}}</h3>
+                        <h3>Clase: {{personaje.3}}</h3>
+                        <h3>Nivel: {{personaje.4}}</h3>
                     </div>
                 </div>
             </a>
         </div>
+        {% endfor %}
     </div>
 
 {% endblock %}

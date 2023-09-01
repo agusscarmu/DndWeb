@@ -162,17 +162,3 @@ $(document).ready(function() {
         decrement(caracteristica);
     });
 });
-
-
-document.addEventListener("DOMContentLoaded", function () {
-    const formulario = document.getElementById("formulario");
-
-    formulario.addEventListener("submit", function (event) {
-        event.preventDefault(); // Prevenir la acción de envío del formulario por defecto
-
-        // Realiza aquí cualquier proceso necesario, como enviar los datos a la base de datos
-
-        // Luego, redirige al usuario a otro HTML
-        window.location.href = "./index.html"; // Cambia "otro.html" por la URL del HTML al que quieres redirigir
-    });
-});

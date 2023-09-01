@@ -1,7 +1,7 @@
 {% extends "./base.html" %}
 {% block body %}
     <div class="ventanaCreacion">
-        <form class="creacionPersonaje" method="POST" action="/insertar">
+        <form action="/add_personaje" method="POST" enctype="multipart/form-data" class="creacionPersonaje">
         
             <label for="nombre">Nombre:</label>
             <input type="text" id="nombre" name="nombre" required><br>
@@ -21,10 +21,9 @@
 
             <label for="raza">Clase:</label>
             <select id="clase" name="clase">
-                <option value="humano">Paladin</option>
-                <option value="elfo">Picaro</option>
-                <option value="enano">Brujo</option>
-                <!-- Agrega más opciones según sea necesario -->
+                {% for clase in clases %}
+                    <option value="{{clase}}">{{clase}}</option>
+                {% endfor %}
             </select><br>
             
             <div class="puntos">
@@ -74,13 +73,14 @@
                 </div><br>
             </div>
             
-
+            
+            <input type="file" name="imagen" accept="image/*"><br>
+            
 
             <label for="descripcion">Descripción:</label><br>
             <textarea id="descripcion" name="descripcion" rows="4" cols="50"></textarea><br>
     
             <input type="submit" value="Crear Personaje">
-        
     </form>
     </div>
     <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
