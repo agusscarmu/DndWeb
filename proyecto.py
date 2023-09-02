@@ -15,17 +15,10 @@ app.config['MYSQL_DB'] = 'dnd'
 mysql = MySQL(app)
 
 
-def registrarPersonaje(nombre, raza, subraza, sexo, clase, constitucion, fuerza, destreza, inteligencia, sabiduria, carisma):
-    sql = "INSERT INTO personaje (nombre, raza, subraza, clase, nivel, constitucion, fuerza, destreza, inteligencia, sabiduria, carisma, experiencia, estados, vida, mana, sexo) VALUES (%s, %s, %s, %s, 1, %s, %s, %s, %s, %s, %s, 0, 'Normal', 100, 100, %s)"
-    val = (nombre, raza, subraza, clase, constitucion, fuerza, destreza, inteligencia, sabiduria, carisma, sexo)
-    cur = mysql.connection.cursor()
-    cur.execute(sql, val)
-    mysql.connection.commit()
-    return personajes()
 
-def registrarPersonajeF(nombre, raza, subraza, sexo, clase, constitucion, fuerza, destreza, inteligencia, sabiduria, carisma, imagen):
-    sql = "INSERT INTO personaje (nombre, raza, subraza, clase, nivel, constitucion, fuerza, destreza, inteligencia, sabiduria, carisma, experiencia, estados, vida, mana, sexo, imagen) VALUES (%s, %s, %s, %s, 1, %s, %s, %s, %s, %s, %s, 0, 'Normal', 100, 100, %s, %s)"
-    val = (nombre, raza, subraza, clase, constitucion, fuerza, destreza, inteligencia, sabiduria, carisma, sexo ,imagen)
+def registrarPersonaje(nombre, raza, subraza, sexo, clase, constitucion, fuerza, destreza, inteligencia, sabiduria, carisma, imagen, descripcion):
+    sql = "INSERT INTO personaje (nombre, raza, subraza, clase, nivel, constitucion, fuerza, destreza, inteligencia, sabiduria, carisma, experiencia, estados, vida, mana, sexo, imagen, descripcion, vidaActual, manaActual) VALUES (%s, %s, %s, %s, 1, %s, %s, %s, %s, %s, %s, 0, 'Normal', 100, 100, %s, %s, %s, 100, 100)"
+    val = (nombre, raza, subraza, clase, constitucion, fuerza, destreza, inteligencia, sabiduria, carisma, sexo ,imagen, descripcion)
     cur = mysql.connection.cursor()
     cur.execute(sql, val)
     mysql.connection.commit()
@@ -52,9 +45,10 @@ def add_personaje():
         imagen = request.files['imagen']
         if imagen.filename!='':
             imagen.save(os.path.join(app.root_path, 'static\imagenesPersonajes', imagen.filename))
-            return registrarPersonajeF(nombre, raza, subraza, sexo, clase, constitucion, fuerza, destreza, inteligencia, sabiduria, carisma, imagen.filename)
         else:
-            return registrarPersonaje(nombre, raza, subraza, sexo, clase, constitucion, fuerza, destreza, inteligencia, sabiduria, carisma)
+            imagen.filename = None
+        return registrarPersonaje(nombre, raza, subraza, sexo, clase, constitucion, fuerza, destreza, inteligencia, sabiduria, carisma, imagen.filename, descripcion)
+
 
 def pj(data):
     personaje = {
@@ -74,7 +68,10 @@ def pj(data):
         "vida": data[0][14],
         "mana": data[0][15],
         "sexo": data[0][16],
-        "imagen": data[0][17]
+        "imagen": data[0][17],
+        "descripcion": data[0][18],
+        "vidaActual": data[0][19],
+        "manaActual": data[0][20]
     }
     return personaje
 
@@ -178,7 +175,8 @@ def personaje(id):
     competencias = clases.get(personajeSeleccionado.get("clase")).get("competencias")
     dado = clases.get(personajeSeleccionado.get("clase")).get("dadoVida")
     habilidadesEspeciales = clases.get(personajeSeleccionado.get("clase")).get("habilidadesEspeciales")
-    return render_template('character.html', personaje = personajeSeleccionado, atributosPersonaje = atributosPersonaje,bonificacionesRaza = bonifRaza, bonificacionesClase = bonifClase, competencias = competencias, dado = dado, habilidadesEspeciales = habilidadesEspeciales)
+    porcentajeVida = 100-((personajeSeleccionado.get("vidaActual")/personajeSeleccionado.get("vida"))*100) 
+    return render_template('character.html', personaje = personajeSeleccionado, vidaAct = porcentajeVida, atributosPersonaje = atributosPersonaje,bonificacionesRaza = bonifRaza, bonificacionesClase = bonifClase, competencias = competencias, dado = dado, habilidadesEspeciales = habilidadesEspeciales)
 
 
 if __name__ == '__main__':

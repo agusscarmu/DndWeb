@@ -258,6 +258,37 @@ input[type="number"]::-webkit-outer-spin-button {
     position: absolute;
 }
 
+.menuPersonaje{
+    display: flex;
+    flex-direction: row;
+    flex-wrap: wrap;
+    justify-content:flex-end;
+    padding-left: 70vh;
+    align-items: center;
+    position: absolute;
+    width: 15vh;
+    height: 30vh;
+}
+
+.menuPersonaje button{
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    background-color: rgba(0, 0, 0, 0);
+    border: #000000 1px solid;
+    border-radius: 10px;
+    height: 5vh;
+    width: 10vh;
+    margin-top: 1vh;
+    transition: background-color 0.3s ease; /* Agrega una transición a background-color */
+}
+
+
+.menuPersonaje button:hover {
+    background-color: rgba(49, 124, 80, 0.5);
+}
+
 .character-image img{
     width: 100%;
     height: 100%;
@@ -279,6 +310,110 @@ strong {
     font-weight: bold;
 }
 
+.ventanaEmergente {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100vw;
+    height: 100vh;
+    background-color: rgba(0, 0, 0, 0.5);
+    z-index: 1000;
+    box-sizing: border-box; /* Agregar esta línea para usar box-sizing: border-box */
+    padding-left: 70vh; /* Puedes agregar el padding sin preocuparte por el desplazamiento */
+    padding-top: 35vh;
+
+}
+
+.elementoVentana {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    width: 30vw;
+    height: 30vh;
+    background-color: #fff;
+    border-radius: 10px;
+    box-shadow: 0px 2px 4px rgba(0, 0, 0, 0.1);
+    box-sizing: border-box; /* Asegúrate de agregarlo aquí también */
+}
+
+.vida {
+    width: 20vh; /* Ancho de la esfera */
+    height: 20vh; /* Altura de la esfera */
+    background-color: #ccc; /* Color de fondo de la esfera */
+    border-radius: 50%; /* Hace que el contenedor sea una esfera */
+    overflow: hidden;
+    display: flex;
+    flex-wrap: wrap;
+    margin-left: 40vh;
+    align-items: center;
+    position: absolute;
+    rotate: 180deg;
+    border: #585858 1px solid;
+    box-shadow: -7px -7px 20px rgba(0, 0, 0, 0.5);
+  }
+  
+  .esfera {
+    width: 100%;
+    height: 100%;
+    background-color: transparent; /* Color de fondo transparente para ocultar el fondo del contenedor */
+    border-radius: 50%;
+    position: relative;
+    justify-content: flex-end;
+  }
+  
+  .liquido {
+   overflow: hidden;
+   background-color: #811515;
+    width: 100%;
+    height: 100%;
+    position: relative;
+  }
+.water {
+  width: 100%;
+  height: 100%;
+  background-color: #811515;
+  box-shadow: inset 0 0 50px #4b0909;
+
+}
+
+.water::before {
+  content: "";
+  width: 450%;
+  height: 450%;
+  background-color: #b35a5a;
+  position: absolute;
+  top: 110%;
+  left: -200%;
+  border-radius: 40%;
+  animation: anim 12s linear infinite;
+}
+
+.water::after {
+  content: "";
+  width: 400%;
+  height: 400%;
+  background-color: #ccc;
+  position: absolute;
+  top: 110%;
+  left: -160%;
+  border-radius: 40%;
+  animation: anim 12s linear infinite;
+  animation-delay: 0.6s;
+}
+
+@keyframes anim {
+  0% {
+    transform: rotate(0deg);
+  }
+  100% {
+    transform: rotate(360deg);
+  }
+}
+
 .contenedorEliminacion{
     display: flex;
     flex-direction: column;
@@ -289,6 +424,14 @@ strong {
 
 }
 
+.statsPersonaje h2{
+    display: flex;
+
+
+    padding-left: 27%;
+    padding-top: 12%;
+    position: absolute;
+}
 .eliminacionPersonaje {
     display: flex;
     flex-direction: column;

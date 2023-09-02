@@ -1,21 +1,69 @@
 {% extends "./base.html" %}
 {% block body %}
+<div class="ventanaEmergente" id="menuEdit" style="display: none;" onclick="closeDiv('menuEdit')">
+    <div class="elementoVentana">
+        Editar
+    </div>
+</div>
+<div class="ventanaEmergente" id="menuVida" style="display: none;" onclick="closeDiv('menuVida')">
+    <div class="elementoVentana">
+        Vida
+    </div>
+</div>
+<div class="ventanaEmergente" id="menuEfecto" style="display: none;" onclick="closeDiv('menuEfecto')">
+    <div class="elementoVentana">
+        Efecto
+    </div>
+</div>
 <div class="card">
     <div class="character-details">
-        <h1 class="text-center">Detalles del Personaje</h1>
-
+        <h1 class="text-center">Detalles de {{personaje.nombre}}</h1>
+        
         <div class="character-image">
             {% if personaje.imagen is not none %}
-                <img src="{{ url_for('static', filename='imagenesPersonajes/' + personaje.imagen) }}" alt="Imagen del Personaje">
+            <img src="{{ url_for('static', filename='imagenesPersonajes/' + personaje.imagen) }}" alt="Imagen del Personaje">
             {% else %}
-                {% if personaje.sexo == "masculino" %}
-                    <img src="{{ url_for('static', filename='imagenesPersonajes/' + personaje.raza + 'm.jpg') }}" alt="Imagen del Personaje">
-                {% else %}
-                    <img src="{{ url_for('static', filename='imagenesPersonajes/' + personaje.raza + 'f.jpg') }}" alt="Imagen del Personaje">
-                {% endif %}
+            {% if personaje.sexo == "masculino" %}
+            <img src="{{ url_for('static', filename='imagenesPersonajes/' + personaje.raza + 'm.jpg') }}" alt="Imagen del Personaje">
+            {% else %}
+            <img src="{{ url_for('static', filename='imagenesPersonajes/' + personaje.raza + 'f.jpg') }}" alt="Imagen del Personaje">
+            {% endif %}
             {% endif %}
         </div>
-        
+        <div class = "statsPersonaje">
+            <h2>Vida: {{personaje.vidaActual}} / {{personaje.vida}}</h2>
+
+            <div class="vida" >
+                <div class="esfera">
+                    <div class="liquido" style="top: -{{ vidaAct }}%;" data-vida="{{vidaAct}}">
+                        <div class="water"></div>
+                    </div>
+                </div>
+                
+            </div>
+            <div>
+                <h2></h2>
+            </div>
+            
+        </div>
+        <div class="menuPersonaje">
+            
+            <div class="btnEdit">
+                <button id="btnEd" onclick="openDiv('menuEdit')">
+                    Editar
+                </button>
+            </div>
+            <div class="btnEfecto">
+                <button id="btnEf" onclick="openDiv('menuEfecto')">
+                    Aplicar efecto
+                </button>
+            </div>
+            <div class="btnVida">
+                <button id="btnV" onclick="openDiv('menuVida')">
+                    Restar vida
+                </button>
+            </div>
+        </div>
         <div class="character-info">
             <h2>Información del Personaje</h2>
             <ul>
@@ -59,8 +107,8 @@
         </div>
 
         <div class="hit-dice">
-            <h2>Dado de Vida</h2>
-            <p>{{ dado }}</p>
+            <h2>Dado de Clase</h2>
+            <p>d{{ dado }}</p>
         </div>
 
         <div class="class-special-abilities">
@@ -76,4 +124,6 @@
 
 
 </div>
+
+<script src="{{ url_for('static', filename='js/personaje.js') }}"></script>
 {% endblock %}

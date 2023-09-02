@@ -12,23 +12,23 @@ var razaActual;
 const razaContainer = document.getElementById("raza");
     
     
-    const defaultOption = document.createElement("option");
-    defaultOption.value = "";
-    defaultOption.text = "Seleccione una raza";
-    razaContainer.appendChild(defaultOption);
-    
-    for (const raza in razas) {
-        const option = document.createElement("option");
-        option.value = raza;
-        option.text = razas[raza].nombre;
-        razaContainer.appendChild(option);
-    }
-    
-
-const claseContainer = document.getElementById("clase");
+const defaultOption = document.createElement("option");
 defaultOption.value = "";
-defaultOption.text = "Seleccione una clase";
-claseContainer.appendChild(defaultOption);
+defaultOption.text = "Seleccione una raza";
+razaContainer.appendChild(defaultOption);
+    
+for (const raza in razas) {
+    const option = document.createElement("option");
+    option.value = raza;
+    option.text = razas[raza].nombre;
+    razaContainer.appendChild(option);
+}
+    
+const defaultOption2 = document.createElement("option");
+const claseContainer = document.getElementById("clase");
+defaultOption2.value = "";
+defaultOption2.text = "Seleccione una clase";
+claseContainer.appendChild(defaultOption2);
 
 for(const clase in clases){
     const option = document.createElement("option");
