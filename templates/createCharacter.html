@@ -1,7 +1,7 @@
 {% extends "./base.html" %}
 {% block body %}
     <div class="ventanaCreacion">
-        <form action="/add_personaje" method="POST" enctype="multipart/form-data" class="creacionPersonaje">
+        <form id="creacionpj" action="/add_personaje" method="POST" enctype="multipart/form-data" class="creacionPersonaje">
         
             <label for="nombre">Nombre:</label>
             <input type="text" id="nombre" name="nombre" required><br>
@@ -76,8 +76,8 @@
 
             <label for="descripcion">Descripción:</label><br>
             <textarea id="descripcion" name="descripcion" rows="4" cols="50"></textarea><br>
-    
-            <input type="submit" value="Crear Personaje">
+            <div id="mensajeAdvertencia" style="color: red;"></div>
+            <input class="botonCrear" type="submit" value="Crear Personaje" >
     </form>
     </div>
     <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>

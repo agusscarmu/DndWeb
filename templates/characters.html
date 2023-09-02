@@ -1,35 +1,95 @@
 {% extends "./base.html" %}
 {% block body %}
 <div class="seccionPersonaje">
+    <div class="carrusel" id="carrusel">
         {% for personaje in personajes %}
-        <div class="personajes" id="zonaPersonajes">
-            <a href="personaje/{{personaje.0}}" data-id="{{personaje.0}}">
-                <div class="tarjetapj" id="tarjetaPj">
-                    <div class="imgpj" id="imagenPj">
-                        {% if personaje.17 is not none %}
-                            <img class="imagen" src="{{ url_for('static', filename='imagenesPersonajes/' + personaje.16) }}" height="100%" width="100%">
-                        {% else %}
-                            {% if personaje.16 == "masculino" %}
-                                <img class="imagen" src="{{ url_for('static', filename='imagenesPersonajes/' + personaje.2 + 'm.jpg') }}" height="100%" width="100%">
-                            {% else %}
-                                <img class="imagen" src="{{ url_for('static', filename='imagenesPersonajes/' + personaje.2 + 'f.jpg') }}" height="100%" width="100%">
-                            {% endif %}
-                        {% endif %}
-                    </div>
-                    
-                    <div class="infopj">
-                        <h3>Nombre: {{personaje.1}}</h3> 
-                        <h3>Raza: {{personaje.2}}</h3>
-                        <h3>Vida: {{personaje.14}}</h3>
-                        <h3>Mana: {{personaje.15}}</h3>
-                        <h3>Clase: {{personaje.4}}</h3>
-                        <h3>Nivel: {{personaje.5}}</h3>
-                    </div>
-                </div>
+        <div class="tarjetapj">
+            <a href="personaje/{{personaje.id}}" data-id="{{personaje.id}}">
+            <div class="imgpj">
+                {% if personaje.imagen is not none %}
+                <img class="imagen" src="{{ url_for('static', filename='imagenesPersonajes/' + personaje.imagen) }}" alt="{{personaje.nombre}}">
+                {% else %}
+                {% if personaje.sexo == "masculino" %}
+                <img class="imagen" src="{{ url_for('static', filename='imagenesPersonajes/' + personaje.raza + 'm.jpg') }}" alt="{{personaje.nombre}}">
+                {% else %}
+                <img class="imagen" src="{{ url_for('static', filename='imagenesPersonajes/' + personaje.raza + 'f.jpg') }}" alt="{{personaje.nombre}}">
+                {% endif %}
+                {% endif %}
+            </div>
+            
+            <div class="infopj">
+                <h3>Nombre: {{personaje.nombre}}</h3> 
+                <h3>Raza: {{personaje.razaNombre}}</h3>
+                <h3>Vida: {{personaje.vida}}</h3>
+                <h3>Mana: {{personaje.mana}}</h3>
+                <h3>Clase: {{personaje.claseNombre}}</h3>
+                <h3>Nivel: {{personaje.nivel}}</h3>
+            </div>
             </a>
         </div>
         {% endfor %}
     </div>
+    <div class="botonesCarrusel">
+        <img class="arrowButton" id="prevBtn" src="{{ url_for('static', filename='elems/60762.png') }}" alt="">
+        <img class="arrowButton" id="nextBtn" src="{{ url_for('static', filename='elems/60762.png') }}" alt="">
 
+    </div>
+</div>
 
+<script>
+// Variables para el carrusel
+let slideIndex = 0;
+const carrusel = document.getElementById("carrusel");
+const slides = carrusel.getElementsByClassName("tarjetapj");
+const prevBtn = document.getElementById("prevBtn");
+const nextBtn = document.getElementById("nextBtn");
+const slidesPerView = 3; // Cantidad de tarjetas visibles a la vez
+const lastElem = slides[slides.length - 1]; // Última tarjeta
+
+// Función para mostrar las diapositivas actuales
+function mostrarDiapositivas() {
+    for (let i = 0; i < slides.length; i++) {
+        slides[i].style.transform = "translateX(0%)"
+        if (i >= slideIndex && i < slideIndex + slidesPerView) {
+
+            slides[i].style.display = "block";
+        } else {
+            slides[i].style.display = "none";
+
+        }
+    }
+}
+
+// Función para avanzar o retroceder
+function avanzar(n) {
+    slideIndex += n ;
+
+    if (slideIndex >= slides.length - slidesPerView)  {
+        slideIndex = slides.length - slidesPerView;
+    } else if (slideIndex <= 0) {
+        slideIndex = 0;
+    }
+
+    if(n!=-1){
+        for (let i = 0; i < slides.length; i++) {
+            slides[i].style.transform = `translateX(-150px)`;
+        }
+    }else{
+        for (let i = 0; i < slides.length; i++) {
+            slides[i].style.transform = `translateX(150px)`;
+        }
+    }
+    setTimeout(function() {
+    mostrarDiapositivas();
+    }, 200)
+    }
+
+// Mostrar las diapositivas iniciales
+mostrarDiapositivas();
+
+// Agregar eventos a los botones de navegación
+prevBtn.addEventListener("click", () => avanzar(-1));
+nextBtn.addEventListener("click", () => avanzar(1));
+
+</script>
 {% endblock %}

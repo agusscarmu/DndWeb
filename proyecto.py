@@ -24,6 +24,60 @@ def registrarPersonaje(nombre, raza, subraza, sexo, clase, constitucion, fuerza,
     mysql.connection.commit()
     return personajes()
 
+def updatePersonaje(id, nombre, raza, subraza, sexo, clase, constitucion, fuerza, destreza, inteligencia, sabiduria, carisma, imagen, descripcion):
+    sql = "UPDATE personaje SET nombre = %s, raza = %s, subraza = %s, clase = %s, constitucion = %s, fuerza = %s, destreza = %s, inteligencia = %s, sabiduria = %s, carisma = %s, sexo = %s, imagen = %s, descripcion = %s WHERE id = %s"
+    val = (nombre, raza, subraza, clase, constitucion, fuerza, destreza, inteligencia, sabiduria, carisma, sexo ,imagen, descripcion, id)
+    cur = mysql.connection.cursor()
+    cur.execute(sql, val)
+    mysql.connection.commit()
+    return personaje(id)
+
+@app.route('/update_personaje', methods=['POST'])
+def update_personaje():
+    if request.method == 'POST':
+        id = request.form['id']
+        nombre = request.form['nombre']
+        raza = request.form['raza']
+        try:
+            subraza = request.form['subraza']
+        except:
+            subraza = None
+        sexo = request.form['sexo']
+        clase = request.form['clase']
+        constitucion = request.form['constitucion'] 
+        fuerza = request.form['fuerza']
+        destreza = request.form['destreza']
+        inteligencia = request.form['inteligencia']
+        sabiduria = request.form['sabiduria']
+        carisma = request.form['carisma']
+        descripcion = request.form['descripcion']
+        imagen = request.files['imagen']
+        if imagen.filename!='':
+            imagen.save(os.path.join(app.root_path, 'static\imagenesPersonajes', imagen.filename))
+        else:
+            imagen.filename = None
+        return updatePersonaje(id, nombre, raza, subraza, sexo, clase, constitucion, fuerza, destreza, inteligencia, sabiduria, carisma, imagen.filename, descripcion)
+    
+@app.route('/restarVida', methods=['POST'])
+def restarVida():
+    if request.method == 'POST':
+        id = request.form['id']
+        vida = request.form['vida']
+        cur = mysql.connection.cursor()
+        cur.execute('UPDATE personaje SET vidaActual = vidaActual - %s WHERE id = %s',[vida, id])
+        mysql.connection.commit()
+        return personaje(id) 
+
+@app.route('/curar', methods=['POST'])
+def curar():
+    if request.method == 'POST':
+        id = request.form['id']
+        vida = request.form['vida']
+        cur = mysql.connection.cursor()
+        cur.execute('UPDATE personaje SET vidaActual = vidaActual + %s WHERE id = %s',[vida, id])
+        mysql.connection.commit()
+        return personaje(id)
+    
 @app.route('/add_personaje', methods=['POST'])
 def add_personaje():
     if request.method == 'POST':
@@ -52,6 +106,7 @@ def add_personaje():
 
 def pj(data):
     personaje = {
+        "id": data[0][0],
         "nombre": data[0][1],
         "raza": data[0][2],
         "subraza": data[0][3],
@@ -74,6 +129,38 @@ def pj(data):
         "manaActual": data[0][20]
     }
     return personaje
+
+def personajesData(data):
+    personajes = []
+    for i in data:
+        personaje = {
+            "id": i[0],
+            "nombre": i[1],
+            "raza": i[2],
+            "razaNombre": getRaza(i[2]),
+            "subraza": i[3],
+            "clase": i[4],
+            "claseNombre": clases.get(i[4]).get("nombre"),
+            "nivel": i[5],
+            "constitucion": i[6],
+            "fuerza": i[7],
+            "destreza": i[8],
+            "inteligencia": i[9],
+            "sabiduria": i[10],
+            "carisma": i[11],
+            "experiencia": i[12],
+            "estados": i[13],
+            "vida": i[14],
+            "mana": i[15],
+            "sexo": i[16],
+            "imagen": i[17],
+            "descripcion": i[18],
+            "vidaActual": i[19],
+            "manaActual": i[20]
+        }
+        personajes.append(personaje)
+    return personajes
+
 
 def bonificacionRaza(raza, atributo):
     if raza == None:
@@ -117,6 +204,18 @@ def bonificacionesClaseTotal(clase):
 
     return bonificaciones
 
+def bonificadoresAtributos(pj):
+    bonificaciones = {
+        "constitucion": (pj.get("constitucion")-10)//2,
+        "fuerza": (pj.get("fuerza")-10)//2,
+        "destreza": (pj.get("destreza")-10)//2,
+        "inteligencia": (pj.get("inteligencia")-10)//2,
+        "sabiduria": (pj.get("sabiduria")-10)//2,
+        "carisma": (pj.get("carisma")-10)//2
+    }
+
+    return bonificaciones
+
 def atributosPj(personaje):
     atributos = {
         "constitucion": personaje.get("constitucion"),
@@ -129,16 +228,21 @@ def atributosPj(personaje):
 
     return atributos
 
+def getRaza(raza):
+    return razas.get(raza).get("nombre")
+
 @app.route('/')
 def principal():
     return render_template('index.html')
+
 
 @app.route('/personajes')
 def personajes():
     cur = mysql.connection.cursor()
     cur.execute('SELECT * FROM personaje')
     data = cur.fetchall()
-    return render_template('characters.html', personajes = data)
+    personajesSeleccionados = personajesData(data)
+    return render_template('characters.html', personajes = personajesSeleccionados)
 
 @app.route('/creacion')
 def creacion():
@@ -170,13 +274,15 @@ def personaje(id):
     print(data)
     personajeSeleccionado = pj(data)
     atributosPersonaje = atributosPj(personajeSeleccionado)
+    razaPersonaje = getRaza(personajeSeleccionado.get("raza"))
     bonifRaza = bonifTotalesRaza(personajeSeleccionado)
     bonifClase = bonificacionesClaseTotal(clases.get(personajeSeleccionado.get("clase")).get("competenciaSalvacion"))
     competencias = clases.get(personajeSeleccionado.get("clase")).get("competencias")
     dado = clases.get(personajeSeleccionado.get("clase")).get("dadoVida")
     habilidadesEspeciales = clases.get(personajeSeleccionado.get("clase")).get("habilidadesEspeciales")
     porcentajeVida = 100-((personajeSeleccionado.get("vidaActual")/personajeSeleccionado.get("vida"))*100) 
-    return render_template('character.html', personaje = personajeSeleccionado, vidaAct = porcentajeVida, atributosPersonaje = atributosPersonaje,bonificacionesRaza = bonifRaza, bonificacionesClase = bonifClase, competencias = competencias, dado = dado, habilidadesEspeciales = habilidadesEspeciales)
+    bonifAtributos = bonificadoresAtributos(personajeSeleccionado)
+    return render_template('character.html', personaje = personajeSeleccionado, bonificacionAtributos = bonifAtributos,razaPersonaje = razaPersonaje, vidaAct = porcentajeVida, atributosPersonaje = atributosPersonaje,bonificacionesRaza = bonifRaza, bonificacionesClase = bonifClase, competencias = competencias, dado = dado, habilidadesEspeciales = habilidadesEspeciales)
 
 
 if __name__ == '__main__':

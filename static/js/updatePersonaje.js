@@ -3,21 +3,15 @@ import { razas } from "./razas.js";
 import { subrazas } from "./subrazas.js";
 import {clases} from "./clases.js";
 
-var puntosTotal = 27;
+var puntosTotal = 0;
 const puntos = document.getElementById("puntosTotal");
 puntos.textContent = puntosTotal;
-
-var botonEnviar = document.querySelector("botonEnviar");
 
 
 var razaActual;
 const razaContainer = document.getElementById("raza");
     
-    
-const defaultOption = document.createElement("option");
-defaultOption.value = "";
-defaultOption.text = "Seleccione una raza";
-razaContainer.appendChild(defaultOption);
+
     
 for (const raza in razas) {
     const option = document.createElement("option");
@@ -26,11 +20,9 @@ for (const raza in razas) {
     razaContainer.appendChild(option);
 }
     
-const defaultOption2 = document.createElement("option");
+
 const claseContainer = document.getElementById("clase");
-defaultOption2.value = "";
-defaultOption2.text = "Seleccione una clase";
-claseContainer.appendChild(defaultOption2);
+
 
 for(const clase in clases){
     const option = document.createElement("option");
@@ -134,6 +126,9 @@ function objKey(obj){
     }
 }
 
+function puntosSobra(puntosTotal, puntosUsados){
+    return puntosTotal - puntosUsados;
+}
 
 $(document).ready(function() {
     const limit = 15;
@@ -153,14 +148,6 @@ $(document).ready(function() {
     });
 });
 
-$("#creacionpj").on("submit", function(event) {
-    if (puntosTotal != 0) {
-        event.preventDefault(); // Evita el envío del formulario
-        // Muestra el mensaje de advertencia
-        $("#mensajeAdvertencia").text("Falta asignar puntos antes de enviar el formulario.");
-    }
-    
-});
 $(document).ready(function() {
     const limit = 8;
 
@@ -178,6 +165,14 @@ $(document).ready(function() {
     });
 });
 
+$("#actualizarpj").on("submit", function(event) {
+    if (puntosTotal != 0) {
+        event.preventDefault(); // Evita el envío del formulario
+        // Muestra el mensaje de advertencia
+        $("#mensajeAdvertencia").text("Falta asignar puntos antes de enviar el formulario.");
+    }
+    
+});
 $(document).ready(function(){
     $("#clase").on("change", function(){
         let claseSeleccionada = clases[$("#clase").val()];

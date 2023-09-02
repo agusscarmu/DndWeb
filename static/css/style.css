@@ -4,6 +4,7 @@ body{
     min-height: 100vh;
     background-image: url(/static/images/159121.jpg);
     background-size: cover;
+    font-family: 'Roboto', sans-serif;
 }
 
 body::before {
@@ -131,14 +132,34 @@ body::before {
 
 
 /* personajes */
-.seccionPersonaje{
+.seccionPersonaje {
     display: flex;
-    justify-content: center;
+    justify-content: space-between;
+    align-items: center;
     flex-wrap: wrap;
     width: 100vw; /* Ancho de la ventana */
-    height: 100vh; /* Altura de la ventana */
-    top: 0;
-    left: 0;
+    height: 100%; /* Altura de la ventana */
+    max-height: 80vh;
+
+    position: absolute;
+}
+.carrusel {
+    display: flex;
+
+    justify-content: center;
+    margin-left: 10%;
+    margin-right: 10%;
+    width: 100%;
+    align-items: center;
+}
+.botonesCarrusel{
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    width: 100%;
+    margin-top: 3%;
+    margin-bottom: 3%;
+    position: absolute;
 }
 .imgpj {
     width: 100%;
@@ -163,15 +184,40 @@ body::before {
     width: 30%;
     height: auto;
 }
-.tarjetapj{
+
+.transicionPersonaje{
+    animation: carousel 10s ease-in-out infinite;
+}
+.tarjetapj a{
+    text-decoration: none;
+    color: #000000;
+}
+.tarjetapj {
     background-color: rgb(223, 223, 223, 0.9);
     border-radius: 10px; /* Ajusta este valor según lo redondeados que quieras los bordes */
     box-shadow: 0px 2px 4px rgba(0, 0, 0, 0.1);
     padding: 20px;
+    margin-left: 5%;
+    margin-right: 5%;
+
     width: 300px;
-    
+ /* Espacio entre las tarjetas */
+    transition: transform 0.5s ease-in-out;
+    position: relative;
 }
 
+.slide {
+    animation: aparicion 1s ease forwards;
+}
+
+@keyframes aparicion{
+    0%{
+        opacity: 0;
+    }
+    100%{
+        opacity: 1;
+    }
+}
 
 .tarjetapj-hover{
     animation: zoom .5s ease forwards;
@@ -179,6 +225,83 @@ body::before {
 
 .tarjetapj-img-hover{
     animation: zoom 1s ease forwards;
+}
+
+
+.botonConfirmar{
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+    align-items: center;
+    background-color: rgba(0, 0, 0, 0);
+    border: #000000 1px solid;
+    border-radius: 10px;
+    height: 2vh;
+    width: 10vh;
+    margin-bottom: 2vh;
+    margin-top: 1vh;
+    transition: background-color 0.3s ease; /* Agrega una transición a background-color */
+    cursor: pointer;
+}
+
+.botonVolver{
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+    align-items: center;
+    background-color: rgba(0, 0, 0, 0);
+    border: #000000 1px solid;
+    border-radius: 10px;
+    height: 2vh;
+    width: 10vh;
+    margin-top: 1vh;
+    transition: background-color 0.3s ease; /* Agrega una transición a background-color */
+    cursor: pointer;
+}
+
+.botonVolver:hover{
+    background-color: rgba(49, 124, 80, 0.5);
+}
+
+.botonConfirmar:hover{
+    background-color: rgba(49, 94, 124, 0.5);
+}
+#prevBtn{
+    margin-left: 5%;
+    max-height: 4%;
+    max-width: 4%;
+    height: 4%;
+    width: 4%;
+    rotate: 180deg;
+    filter: invert(90%);
+    cursor: pointer;
+}
+
+#nextBtn{
+    margin-right: 5%;
+    max-height: 4%;
+    max-width: 4%;
+    height: 4%;
+    width: 4%;
+    filter: invert(90%);
+    cursor: pointer;
+}
+
+#prevBtn, #nextBtn{
+    transition: transform 0.5s ease-in-out;
+}
+
+#prevBtn:hover, #nextBtn:hover{
+    transform: scale(1.1);
+}
+
+@keyframes carousel{
+    0%{
+        transform: translateX(0);
+    }
+    100%{
+        transform: translateX(-100%);
+    }
 }
 
 @keyframes zoom{
@@ -249,25 +372,23 @@ input[type="number"]::-webkit-outer-spin-button {
     position: absolute;
 } */
 .character-image {
-    display: flex;
-    width: 500px;
-    height: 700px; /* Establece la altura deseada */
+    max-width: 500px; /* La imagen no será más ancha que su contenedor */
+    height: 700px; /* Mantén la relación de aspecto original */
     border-radius: 10px;
-    /* overflow: hidden; */
+    /* overflow: hidden; */ /* Puedes quitar esta línea, ya que no es necesaria para hacerlo responsive */
     padding-left: 60%;
     position: absolute;
 }
 
 .menuPersonaje{
-    display: flex;
-    flex-direction: row;
-    flex-wrap: wrap;
-    justify-content:flex-end;
-    padding-left: 70vh;
-    align-items: center;
+    width: 20%;
+    height: 50%;
     position: absolute;
-    width: 15vh;
-    height: 30vh;
+    margin-right: 40%;
+    margin-left: 45%;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
 }
 
 .menuPersonaje button{
@@ -326,7 +447,38 @@ strong {
     padding-top: 35vh;
 
 }
+.elementoVentanaUpdate {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    width: 30vw;
+    height: 100vh;
+    background-color: #fff;
+    border-radius: 10px;
+    box-shadow: 0px 2px 4px rgba(0, 0, 0, 0.1);
+    box-sizing: border-box; /* Asegúrate de agregarlo aquí también */
+}
 
+.elementoVentanaVida{
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    width: 20vw;
+    height: 40vh;
+    background-color: #fff;
+    border-radius: 10px;
+    box-shadow: 0px 2px 4px rgba(0, 0, 0, 0.1);
+    box-sizing: border-box; /* Asegúrate de agregarlo aquí también */
+}
+
+.elementoVentanaVida form{
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+}
 .elementoVentana {
     display: flex;
     flex-direction: column;
@@ -340,20 +492,31 @@ strong {
     box-sizing: border-box; /* Asegúrate de agregarlo aquí también */
 }
 
-.vida {
-    width: 20vh; /* Ancho de la esfera */
-    height: 20vh; /* Altura de la esfera */
-    background-color: #ccc; /* Color de fondo de la esfera */
-    border-radius: 50%; /* Hace que el contenedor sea una esfera */
+.statsPersonaje{
+    width: 20%;
+    height: 30%;
+    position: absolute;
+    margin-right: 40%;
+    margin-left: 30%;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+
+}
+.statsPersonaje .vida {
+    width: 20vmin; /* Ancho de la esfera en función del viewport mínimo */
+    height: 20vmin; /* Altura de la esfera en función del viewport mínimo */
+    max-width: 200px; /* Ancho máximo para evitar que la esfera sea demasiado grande en pantallas grandes */
+    max-height: 200px; /* Altura máxima */
+    background-color: #ccc;
+    border-radius: 50%;
     overflow: hidden;
     display: flex;
     flex-wrap: wrap;
-    margin-left: 40vh;
-    align-items: center;
-    position: absolute;
-    rotate: 180deg;
-    border: #585858 1px solid;
+    border: 1px solid #585858;
     box-shadow: -7px -7px 20px rgba(0, 0, 0, 0.5);
+    rotate: 180deg;
+    position: relative;
   }
   
   .esfera {
@@ -373,8 +536,8 @@ strong {
     position: relative;
   }
 .water {
-  width: 100%;
-  height: 100%;
+  width: 50vh;
+  height: 50vh;
   background-color: #811515;
   box-shadow: inset 0 0 50px #4b0909;
 
@@ -394,12 +557,12 @@ strong {
 
 .water::after {
   content: "";
-  width: 400%;
-  height: 400%;
+  width: 500%;
+  height: 500%;
   background-color: #ccc;
   position: absolute;
-  top: 110%;
-  left: -160%;
+  top: 119%;
+  left: -210%;
   border-radius: 40%;
   animation: anim 12s linear infinite;
   animation-delay: 0.6s;
@@ -425,12 +588,12 @@ strong {
 }
 
 .statsPersonaje h2{
+
     display: flex;
-
-
-    padding-left: 27%;
-    padding-top: 12%;
+    padding-top: 100%;
     position: absolute;
+    max-width: 100%;
+    max-height: 100%;
 }
 .eliminacionPersonaje {
     display: flex;
@@ -521,4 +684,3 @@ strong {
     color: #000000;
     font-size: 15px;
 }
-

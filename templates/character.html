@@ -1,15 +1,118 @@
 {% extends "./base.html" %}
 {% block body %}
-<div class="ventanaEmergente" id="menuEdit" style="display: none;" onclick="closeDiv('menuEdit')">
+<div class="ventanaEmergente" id="menuEdit" style="display: none;">
     <div class="elementoVentana">
-        Editar
+        
+            <form id="actualizarpj" action="/update_personaje" method="POST" enctype="multipart/form-data" class="elementoVentanaUpdate">
+                <input type="hidden" id="id" name="id" value={{personaje.id}}><br>
+                <label for="nombre">Nombre:</label>
+                <input type="text" id="nombre" name="nombre" value={{personaje.nombre}}><br>
+        
+                <label for="raza">Raza:</label>
+                    <select id="raza" name="raza"  >
+                        <option value="{{personaje.raza}}">Raza actual: {{razaPersonaje}}</option>
+                    </select><br>
+                <div id="subrazas-container"></div>
+                <label>Sexo:</label>
+                <div class="sexo">
+                    {% if personaje.sexo == "femenino" %}
+                    <input type="radio" id="femenino" name="sexo" value="femenino" checked>
+                    <label for="femenino">Femenino</label>
+                    <input type="radio" id="masculino" name="sexo" value="masculino" >
+                    <label for="masculino">Masculino</label><br>
+                    {% else %}
+                    <input type="radio" id="femenino" name="sexo" value="femenino" >
+                    <label for="femenino">Femenino</label>
+                    <input type="radio" id="masculino" name="sexo" value="masculino" checked>
+                    <label for="masculino">Masculino</label><br>
+                    {% endif %}
+                </div>
+    
+                <label for="clase">Clase:</label>
+                    <select id="clase" name="clase" >
+                        <option value="{{personaje.clase}}">Clase actual: {{personaje.clase}}</option>
+                </select><br>
+                
+                <div class="puntos">
+                    <label for="puntos">Puntos:</label>
+                    <span id="puntosTotal"></span><br>
+                    <label for="constitucion">Constitución: </label>
+                    <div class="incrementer">
+                        <button type="button" class="menosBoton" data-caracteristica="constitucion">-</button>
+                        <input type="number" id="constitucion" name="constitucion" value="{{personaje.constitucion}}" min="8" max="15" >
+                        <button type="button" class="masBoton" data-caracteristica="constitucion">+</button>
+                        <span id="bonifConstitucion">0</span>
+                    </div><br>
+                    <label for="destreza">Destreza:</label>
+                    <div class="incrementer">
+                        <button type="button" class="menosBoton" data-caracteristica="destreza">-</button>
+                        <input type="number" id="destreza" name="destreza" value="{{personaje.destreza}}" min="8" max="15" >
+                        <button type="button" class="masBoton" data-caracteristica="destreza">+</button>
+                        <span id="bonifDestreza">0</span>
+                    </div><br>
+                    <label for="fuerza">Fuerza:</label>
+                    <div class="incrementer">
+                        <button type="button" class="menosBoton" data-caracteristica="fuerza">-</button>
+                        <input type="number" id="fuerza" name="fuerza" value="{{personaje.fuerza}}" min="8" max="15" >
+                        <button type="button" class="masBoton" data-caracteristica="fuerza">+</button>
+                        <span id="bonifFuerza">0</span>
+                    </div><br>
+                    <label for="inteligencia">Inteligencia:</label>
+                    <div class="incrementer">
+                        <button type="button" class="menosBoton" data-caracteristica="inteligencia">-</button>
+                        <input type="number" id="inteligencia" name="inteligencia" value="{{personaje.inteligencia}}" min="8" max="15" >
+                        <button type="button" class="masBoton" data-caracteristica="inteligencia">+</button>
+                        <span id="bonifInteligencia">0</span>
+                    </div><br>
+                    <label for="sabiduria">Sabiduria:</label>
+                    <div class="incrementer">
+                        <button type="button" class="menosBoton" data-caracteristica="sabiduria">-</button>
+                        <input type="number" id="sabiduria" name="sabiduria" value="{{personaje.sabiduria}}" min="8" max="15" >
+                        <button type="button" class="masBoton" data-caracteristica="sabiduria">+</button>
+                        <span id="bonifSabiduria">0</span>
+                    </div><br>
+                    <label for="carisma">Carisma:</label>
+                    <div class="incrementer">
+                        <button type="button" class="menosBoton" data-caracteristica="carisma">-</button>
+                        <input type="number" id="carisma" name="carisma" value="{{personaje.carisma}}" min="8" max="15" >
+                        <button type="button" class="masBoton" data-caracteristica="carisma">+</button>
+                        <span id="bonifCarisma">0</span>
+                    </div><br>
+                </div>
+                
+                
+                <input type="file" name="imagen" accept="image/*"><br>
+                
+    
+                <label for="descripcion">Descripción:</label><br>
+                <textarea id="descripcion" name="descripcion" rows="4" cols="50" value="{{personaje.descripcion}}" placeholder="{{personaje.descripcion}}"></textarea><br>
+                <button type="button" onclick="closeDiv('menuEdit')">volver</button>
+                <div id="mensajeAdvertencia" style="color: red;"></div>
+                <input id="botonActualizar" type="submit" value="Confirmar">
+        </form>
+        
+
     </div>
 </div>
-<div class="ventanaEmergente" id="menuVida" style="display: none;" onclick="closeDiv('menuVida')">
-    <div class="elementoVentana">
-        Vida
+<div class="ventanaEmergente" id="menuVida" style="display: none;" >
+    <div class="elementoVentanaVida">
+        <h2>Restar vida</h2>
+        <form id="actualizarpj" action="/restarVida" method="POST">
+            <input type="number" id="vida" name="vida" value="0" >
+            <input type="hidden" id="id" name="id" value={{personaje.id}}><br>
+            <button class="botonConfirmar" type="submit" >Confirmar</button>
+        </form>
+        
+        <h2>Curar</h2>
+        <form id="actualizarpj" action="/curar" method="POST">
+            <input type="number" id="vida" name="vida" value="0" >
+            <input type="hidden" id="id" name="id" value={{personaje.id}}><br>
+            <button class="botonConfirmar" type="submit" >Confirmar</button>
+        </form>
+        <button class="botonVolver" type="button" onclick="closeDiv('menuVida')">volver</button>
     </div>
 </div>
+
 <div class="ventanaEmergente" id="menuEfecto" style="display: none;" onclick="closeDiv('menuEfecto')">
     <div class="elementoVentana">
         Efecto
@@ -50,7 +153,7 @@
             
             <div class="btnEdit">
                 <button id="btnEd" onclick="openDiv('menuEdit')">
-                    Editar
+                    Reset
                 </button>
             </div>
             <div class="btnEfecto">
@@ -60,7 +163,7 @@
             </div>
             <div class="btnVida">
                 <button id="btnV" onclick="openDiv('menuVida')">
-                    Restar vida
+                    Vida
                 </button>
             </div>
         </div>
@@ -68,7 +171,7 @@
             <h2>Información del Personaje</h2>
             <ul>
                 <li>Nombre: {{ personaje.nombre }}</li>
-                <li>Raza: {{ personaje.raza }}</li>
+                <li>Raza: {{ razaPersonaje }}</li>
                 <li>Clase: {{ personaje.clase }}</li>
                 <li>Nivel: {{ personaje.nivel }}</li>
                 <!-- Agrega más detalles del personaje aquí -->
@@ -81,8 +184,13 @@
                 {% for atributoPersonaje, bonificacionPersonaje in atributosPersonaje.items() %}
                     {% set bonificacionRaza = bonificacionesRaza[atributoPersonaje] %}
                     {% set bonificacionClase = bonificacionesClase[atributoPersonaje] %}
-                    {% set bonificacionTotal = bonificacionRaza + bonificacionClase %}
-                    <li>{{ atributoPersonaje }}: {{ bonificacionPersonaje }} + {{bonificacionTotal }}</li>
+                    {% set bonifAtributos = bonificacionAtributos[atributoPersonaje] %}
+                    {% set bonificacionTotal = bonificacionRaza + bonificacionClase + bonifAtributos %}
+                    {% if bonificacionTotal > 0 %}
+                        <li>{{ atributoPersonaje }}: {{ bonificacionPersonaje }} +{{bonificacionTotal }}</li>
+                    {% else %}
+                        <li>{{ atributoPersonaje }}: {{ bonificacionPersonaje }} {{bonificacionTotal }}</li>
+                    {% endif %}
                 {% endfor %}
             </ul>
             
@@ -124,6 +232,7 @@
 
 
 </div>
-
+<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+<script type="module" src="{{ url_for('static', filename='js/updatePersonaje.js') }}"></script>
 <script src="{{ url_for('static', filename='js/personaje.js') }}"></script>
 {% endblock %}
