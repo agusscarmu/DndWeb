@@ -2,6 +2,7 @@
 import { razas } from "./razas.js";
 import { subrazas } from "./subrazas.js";
 import {clases} from "./clases.js";
+import {habilidades} from "./habilidades.js";
 
 var puntosTotal = 27;
 const puntos = document.getElementById("puntosTotal");
@@ -182,23 +183,63 @@ $(document).ready(function(){
     $("#clase").on("change", function(){
         let claseSeleccionada = clases[$("#clase").val()];
         let bonificadores = bonificadoresClase(claseSeleccionada);
-        
-        desactualizarBonificadorClase("bonifConstitucion");
-        desactualizarBonificadorClase("bonifFuerza");
-        desactualizarBonificadorClase("bonifDestreza");
-        desactualizarBonificadorClase("bonifInteligencia");
-        desactualizarBonificadorClase("bonifSabiduria");
-        desactualizarBonificadorClase("bonifCarisma");
 
-        actualizarBonificadorClase("bonifConstitucion", bonificadores.constitucion);
-        actualizarBonificadorClase("bonifFuerza", bonificadores.fuerza);
-        actualizarBonificadorClase("bonifDestreza", bonificadores.destreza);
-        actualizarBonificadorClase("bonifInteligencia", bonificadores.inteligencia);
-        actualizarBonificadorClase("bonifSabiduria", bonificadores.sabiduria);
-        actualizarBonificadorClase("bonifCarisma", bonificadores.carisma);
+
+
+         // Obtener todos los checkboxes
+         const checkboxes = document.querySelectorAll('input[type="checkbox"]');
+
+         // Establecer el máximo de checkboxes habilitados y el máximo seleccionable
+         const maxHabilitados = clases[$("#clase").val()].habilidades.length;
+         const maxSeleccionables = clases[$("#clase").val()].aElegir;
+         var habilitados = 0;
+         checkboxes.forEach(checkbox => {
+                checkbox.disabled = true;
+         });
+         
+         checkboxes.forEach(checkbox => {
+
+                 if(clases[$("#clase").val()].habilidades.includes(checkbox.value) || clases[$("#clase").val()].habilidades.length === 0){
+                        checkbox.disabled = false;
+                 }
+
+                 // Verificar el máximo seleccionable
+                 checkbox.addEventListener('change', () => {
+                    if (checkbox.checked) {
+                        if (habilitados < maxHabilitados) {
+                            checkbox.disabled = false;
+                            habilitados++;
+                        } else {
+                            checkbox.checked = false;
+                        }
+                    } else {
+                        habilitados--;
+                    }
+                }
+                );
+                const seleccionadosActualmente = document.querySelectorAll('input[type="checkbox"]:checked').length;
+                if (seleccionadosActualmente > maxSeleccionables) {
+                    checkbox.checked = false;
+                }
+                desactualizarBonificadorClase("bonifConstitucion");
+                desactualizarBonificadorClase("bonifFuerza");
+                desactualizarBonificadorClase("bonifDestreza");
+                desactualizarBonificadorClase("bonifInteligencia");
+                desactualizarBonificadorClase("bonifSabiduria");
+                desactualizarBonificadorClase("bonifCarisma");
+        
+                actualizarBonificadorClase("bonifConstitucion", bonificadores.constitucion);
+                actualizarBonificadorClase("bonifFuerza", bonificadores.fuerza);
+                actualizarBonificadorClase("bonifDestreza", bonificadores.destreza);
+                actualizarBonificadorClase("bonifInteligencia", bonificadores.inteligencia);
+                actualizarBonificadorClase("bonifSabiduria", bonificadores.sabiduria);
+                actualizarBonificadorClase("bonifCarisma", bonificadores.carisma);
+        });
 
     });
-});
+        
+
+    });
 
 
 function bonificadoresClase(claseSeleccionada){

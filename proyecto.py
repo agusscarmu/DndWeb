@@ -3,6 +3,7 @@ from flask_mysqldb import MySQL
 from razas_data import razas
 from subrazas_data import subrazas
 from clases_data import clases
+from habilidades_data import habilidades
 import os
 
 

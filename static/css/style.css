@@ -319,16 +319,30 @@ body::before {
     align-items: center;
     justify-content: center;
     width: 100vw; /* Ancho de la ventana */
-    height: 100vh; /* Altura de la ventana */
+    height: 100%; /* Altura de la ventana */
     background-color: rgba(0, 0, 0, 0.5); /* Fondo semitransparente */
     top: 0;
     left: 0;
 }
 
+.habilidadesCreacion{
+    display: flex;
+    position: absolute;
+    flex-direction: column;
+    justify-content: flex-end;
+    flex-wrap: wrap;
+    margin-left: 20%;
+    height: 40%;
+    width: 30%;
+    max-width: 40%;
+    max-height: 40%;
+    margin-top: 10%;
+}
 .creacionPersonaje {
     display: flex;
     flex-direction: column;
-    width: 300px; /* Ancho del formulario */
+    width: 40vw; /* Ancho del formulario */
+    
     padding: 20px;
     background-color: #fff;
     border-radius: 10px;
