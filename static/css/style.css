@@ -324,19 +324,29 @@ body::before {
     top: 0;
     left: 0;
 }
-
-.habilidadesCreacion{
+.bloqueMedioCreacion {
     display: flex;
-    position: absolute;
+    flex-direction: row; /* Cambiar la dirección a horizontal */
+    justify-content: space-between; /* Colocar espacio entre los elementos */
+    align-items: flex-start; /* Alinear elementos en la parte superior */
+}
+.habilidadesCreacion {
+    display: flex;
     flex-direction: column;
-    justify-content: flex-end;
+
     flex-wrap: wrap;
-    margin-left: 20%;
-    height: 40%;
-    width: 30%;
-    max-width: 40%;
-    max-height: 40%;
-    margin-top: 10%;
+    margin-left: 5%; /* Utiliza porcentajes en lugar de píxeles */
+    margin-right: 5%; /* Agregando margen derecho */
+    padding: 2%; /* Agregando relleno para separación */
+    width: 45%; /* Usando porcentaje para el ancho */
+    max-width: 500px; /* Estableciendo un ancho máximo */
+}
+
+/* Media query para pantallas más pequeñas */
+@media (max-width: 768px) {
+    .habilidadesCreacion {
+        flex-direction: row; /* Cambia la dirección en pantallas pequeñas */
+    }
 }
 .creacionPersonaje {
     display: flex;

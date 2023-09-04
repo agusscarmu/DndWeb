@@ -8,7 +8,7 @@
     
             <label for="raza">Raza:</label>
                 <select id="raza" name="raza" required>
-                    <!-- Agrega más opciones según sea necesario -->
+                    <option value="" disabled selected>Seleccionar la raza</option>
                 </select><br>
             <div id="subrazas-container"></div>
             <label>Sexo:</label>
@@ -21,167 +21,170 @@
 
             <label for="clase">Clase:</label>
                 <select id="clase" name="clase" required>
+                    <option value="" disabled selected>Seleccionar la clase</option>
             </select><br>
-            
-            <div class="puntos">
-                <label for="puntos">Puntos:</label>
-                <span id="puntosTotal"></span><br>
-                <label for="constitucion">Constitución:</label>
-                <div class="incrementer">
-                    <button type="button" class="menosBoton" data-caracteristica="constitucion">-</button>
-                    <input type="number" id="constitucion" name="constitucion" value="8" min="8" max="15" required>
-                    <button type="button" class="masBoton" data-caracteristica="constitucion">+</button>
-                    <span id="bonifConstitucion">0</span>
-                </div><br>
-                <label for="destreza">Destreza:</label>
-                <div class="incrementer">
-                    <button type="button" class="menosBoton" data-caracteristica="destreza">-</button>
-                    <input type="number" id="destreza" name="destreza" value="8" min="8" max="15" required>
-                    <button type="button" class="masBoton" data-caracteristica="destreza">+</button>
-                    <span id="bonifDestreza">0</span>
-                </div><br>
-                <label for="fuerza">Fuerza:</label>
-                <div class="incrementer">
-                    <button type="button" class="menosBoton" data-caracteristica="fuerza">-</button>
-                    <input type="number" id="fuerza" name="fuerza" value="8" min="8" max="15" required>
-                    <button type="button" class="masBoton" data-caracteristica="fuerza">+</button>
-                    <span id="bonifFuerza">0</span>
-                </div><br>
-                <label for="inteligencia">Inteligencia:</label>
-                <div class="incrementer">
-                    <button type="button" class="menosBoton" data-caracteristica="inteligencia">-</button>
-                    <input type="number" id="inteligencia" name="inteligencia" value="8" min="8" max="15" required>
-                    <button type="button" class="masBoton" data-caracteristica="inteligencia">+</button>
-                    <span id="bonifInteligencia">0</span>
-                </div><br>
-                <label for="sabiduria">Sabiduria:</label>
-                <div class="incrementer">
-                    <button type="button" class="menosBoton" data-caracteristica="sabiduria">-</button>
-                    <input type="number" id="sabiduria" name="sabiduria" value="8" min="8" max="15" required>
-                    <button type="button" class="masBoton" data-caracteristica="sabiduria">+</button>
-                    <span id="bonifSabiduria">0</span>
-                </div><br>
-                <label for="carisma">Carisma:</label>
-                <div class="incrementer">
-                    <button type="button" class="menosBoton" data-caracteristica="carisma">-</button>
-                    <input type="number" id="carisma" name="carisma" value="8" min="8" max="15" required>
-                    <button type="button" class="masBoton" data-caracteristica="carisma">+</button>
-                    <span id="bonifCarisma">0</span>
-                </div><br>
-            </div>
-            <div class="habilidadesCreacion">
-        <!-- Destreza -->
-        <div class="habilidadPuntual">
-            <input type="checkbox" id="acrobaciaCheckbox" name="habilidad" value="Acrobacias" disabled>
-            <label for="acrobaciaCheckbox">Acrobacias:</label>
-            <span id="bonifAcrobacia"></span>
-        </div>
-        
-        <div class="habilidadPuntual">
-            <input type="checkbox" id="juegoDeManosCheckbox" name="habilidad" value="Juego de manos" disabled>
-            <label for="juegoDeManosCheckbox">Juego de manos:</label>
-            <span id="bonifJuegoDeManos"></span>
-        </div>
-        
-        <div class="habilidadPuntual">
-            <input type="checkbox" id="sigiloCheckbox" name="habilidad" value="Sigilo" disabled>
-            <label for="sigiloCheckbox">Sigilo:</label>
-            <span id="bonifSigilo"></span>
-        </div>
-        
-        <!-- Fuerza -->
-        <div class="habilidadPuntual">
-            <input type="checkbox" id="atletismoCheckbox" name="habilidad" value="Atletismo" disabled>
-            <label for="atletismoCheckbox">Atletismo:</label>
-            <span id="bonifAtletismo"></span>
-        </div>
-        
-        <!-- Inteligencia -->
-        <div class="habilidadPuntual">
-            <input type="checkbox" id="arcanosCheckbox" name="habilidad" value="Arcanos" disabled>
-            <label for="arcanosCheckbox">Arcanos:</label>
-            <span id="bonifArcanos"></span>
-        </div>
-        
-        <div class="habilidadPuntual">
-            <input type="checkbox" id="historiaCheckbox" name="habilidad" value="Historia" disabled>
-            <label for="historiaCheckbox">Historia:</label>
-            <span id="bonifHistoria"></span>
-        </div>
-        
-        <div class="habilidadPuntual">
-            <input type="checkbox" id="investigacionCheckbox" name="habilidad" value="Investigación" disabled>
-            <label for="investigacionCheckbox">Investigación:</label>
-            <span id="bonifInvestigacion"></span>
-        </div>
-        
-        <div class="habilidadPuntual">
-            <input type="checkbox" id="naturalezaCheckbox" name="habilidad" value="Naturaleza" disabled>
-            <label for="naturalezaCheckbox">Naturaleza:</label>
-            <span id="bonifNaturaleza"></span>
-        </div>
-        
-        <div class="habilidadPuntual">
-            <input type="checkbox" id="religionCheckbox" name="habilidad" value="Religión" disabled>
-            <label for="religionCheckbox">Religión:</label>
-            <span id="bonifReligion"></span>
-        </div>
-        
-        <!-- Sabiduría -->
-        <div class="habilidadPuntual">
-            <input type="checkbox" id="percepcionCheckbox" name="habilidad" value="Percepción" disabled>
-            <label for="percepcionCheckbox">Percepción:</label>
-            <span id="bonifPercepcion"></span>
-        </div>
-        
-        <div class="habilidadPuntual">
-            <input type="checkbox" id="medicinaCheckbox" name="habilidad" value="Medicina" disabled>
-            <label for="medicinaCheckbox">Medicina:</label>
-            <span id="bonifMedicina"></span>
-        </div>
-        
-        <div class="habilidadPuntual">
-            <input type="checkbox" id="manejoAnimalesCheckbox" name="habilidad" value="Trato con animales" disabled>
-            <label for="tratoConAnimalesCheckbox">Trato con animales:</label>
-            <span id="bonifManejoAnimales"></span>
-        </div>
-        
-        <div class="habilidadPuntual">
-            <input type="checkbox" id="supervivenciaCheckbox" name="habilidad" value="Supervivencia" disabled>
-            <label for="supervivenciaCheckbox">Supervivencia:</label>
-            <span id="bonifSupervivencia"></span>
-        </div>
-        
-        <div class="habilidadPuntual">
-            <input type="checkbox" id="averiguarIntencionesCheckbox" name="habilidad" value="Perspicacia" disabled>
-            <label for="averiguarIntencionesCheckbox">Perspicacia:</label>
-            <span id="bonifAveriguarIntenciones"></span>
-        </div>
-        
-        <!-- Carisma -->
-        <div class="habilidadPuntual">
-            <input type="checkbox" id="engañoCheckbox" name="habilidad" value="Engaño" disabled>
-            <label for="engañoCheckbox">Engaño:</label>
-            <span id="bonifEngaño"></span>
-        </div>
-        
-        <div class="habilidadPuntual">
-            <input type="checkbox" id="intimidacionCheckbox" name="habilidad" value="Intimidación" disabled>
-            <label for="intimidacionCheckbox">Intimidación:</label>
-            <span id="bonifIntimidacion"></span>
-        </div>
-        
-        <div class="habilidadPuntual">
-            <input type="checkbox" id="persuasionCheckbox" name="habilidad" value="Persuasión" disabled>
-            <label for="persuasionCheckbox">Persuasión:</label>
-            <span id="bonifPersuasion"></span>
-        </div>
-        
-            </div>
+            <div class="bloqueMedioCreacion">
 
-            
-            
-            <input type="file" name="imagen" accept="image/*"><br>
+                <div class="puntos">
+                    <label for="puntos">Puntos:</label>
+                    <span id="puntosTotal"></span><br>
+                    <label for="constitucion">Constitución:</label>
+                    <div class="incrementer">
+                        <button type="button" class="menosBoton" data-caracteristica="constitucion">-</button>
+                        <input type="number" id="constitucion" name="constitucion" value="8" min="8" max="15" required>
+                        <button type="button" class="masBoton" data-caracteristica="constitucion">+</button>
+                        <span id="bonifConstitucion">0</span>
+                    </div><br>
+                    <label for="destreza">Destreza:</label>
+                    <div class="incrementer">
+                        <button type="button" class="menosBoton" data-caracteristica="destreza">-</button>
+                        <input type="number" id="destreza" name="destreza" value="8" min="8" max="15" required>
+                        <button type="button" class="masBoton" data-caracteristica="destreza">+</button>
+                        <span id="bonifDestreza">0</span>
+                    </div><br>
+                    <label for="fuerza">Fuerza:</label>
+                    <div class="incrementer">
+                        <button type="button" class="menosBoton" data-caracteristica="fuerza">-</button>
+                        <input type="number" id="fuerza" name="fuerza" value="8" min="8" max="15" required>
+                        <button type="button" class="masBoton" data-caracteristica="fuerza">+</button>
+                        <span id="bonifFuerza">0</span>
+                    </div><br>
+                    <label for="inteligencia">Inteligencia:</label>
+                    <div class="incrementer">
+                        <button type="button" class="menosBoton" data-caracteristica="inteligencia">-</button>
+                        <input type="number" id="inteligencia" name="inteligencia" value="8" min="8" max="15" required>
+                        <button type="button" class="masBoton" data-caracteristica="inteligencia">+</button>
+                        <span id="bonifInteligencia">0</span>
+                    </div><br>
+                    <label for="sabiduria">Sabiduria:</label>
+                    <div class="incrementer">
+                        <button type="button" class="menosBoton" data-caracteristica="sabiduria">-</button>
+                        <input type="number" id="sabiduria" name="sabiduria" value="8" min="8" max="15" required>
+                        <button type="button" class="masBoton" data-caracteristica="sabiduria">+</button>
+                        <span id="bonifSabiduria">0</span>
+                    </div><br>
+                    <label for="carisma">Carisma:</label>
+                    <div class="incrementer">
+                        <button type="button" class="menosBoton" data-caracteristica="carisma">-</button>
+                        <input type="number" id="carisma" name="carisma" value="8" min="8" max="15" required>
+                        <button type="button" class="masBoton" data-caracteristica="carisma">+</button>
+                        <span id="bonifCarisma">0</span>
+                    </div><br>
+                </div>
+                <div class="habilidadesCreacion">
+                    <!-- Destreza -->
+                    <div class="habilidadPuntual">
+                        <input type="checkbox" id="acrobaciaCheckbox" name="habilidad" value="Acrobacias" disabled>
+                        <label for="acrobaciaCheckbox">Acrobacias:</label>
+                        <span id="bonifAcrobacia"></span>
+                    </div>
+    
+                    <div class="habilidadPuntual">
+                        <input type="checkbox" id="juegoDeManosCheckbox" name="habilidad" value="Juego de manos" disabled>
+                        <label for="juegoDeManosCheckbox">Juego de manos:</label>
+                        <span id="bonifJuegoDeManos"></span>
+                    </div>
+    
+                    <div class="habilidadPuntual">
+                        <input type="checkbox" id="sigiloCheckbox" name="habilidad" value="Sigilo" disabled>
+                        <label for="sigiloCheckbox">Sigilo:</label>
+                        <span id="bonifSigilo"></span>
+                    </div>
+    
+                    <!-- Fuerza -->
+                    <div class="habilidadPuntual">
+                        <input type="checkbox" id="atletismoCheckbox" name="habilidad" value="Atletismo" disabled>
+                        <label for="atletismoCheckbox">Atletismo:</label>
+                        <span id="bonifAtletismo"></span>
+                    </div>
+    
+                    <!-- Inteligencia -->
+                    <div class="habilidadPuntual">
+                        <input type="checkbox" id="arcanosCheckbox" name="habilidad" value="Arcanos" disabled>
+                        <label for="arcanosCheckbox">Arcanos:</label>
+                        <span id="bonifArcanos"></span>
+                    </div>
+    
+                    <div class="habilidadPuntual">
+                        <input type="checkbox" id="historiaCheckbox" name="habilidad" value="Historia" disabled>
+                        <label for="historiaCheckbox">Historia:</label>
+                        <span id="bonifHistoria"></span>
+                    </div>
+    
+                    <div class="habilidadPuntual">
+                        <input type="checkbox" id="investigacionCheckbox" name="habilidad" value="Investigación" disabled>
+                        <label for="investigacionCheckbox">Investigación:</label>
+                        <span id="bonifInvestigacion"></span>
+                    </div>
+    
+                    <div class="habilidadPuntual">
+                        <input type="checkbox" id="naturalezaCheckbox" name="habilidad" value="Naturaleza" disabled>
+                        <label for="naturalezaCheckbox">Naturaleza:</label>
+                        <span id="bonifNaturaleza"></span>
+                    </div>
+    
+                    <div class="habilidadPuntual">
+                        <input type="checkbox" id="religionCheckbox" name="habilidad" value="Religión" disabled>
+                        <label for="religionCheckbox">Religión:</label>
+                        <span id="bonifReligion"></span>
+                    </div>
+    
+                    <!-- Sabiduría -->
+                    <div class="habilidadPuntual">
+                        <input type="checkbox" id="percepcionCheckbox" name="habilidad" value="Percepción" disabled>
+                        <label for="percepcionCheckbox">Percepción:</label>
+                        <span id="bonifPercepcion"></span>
+                    </div>
+    
+                    <div class="habilidadPuntual">
+                        <input type="checkbox" id="medicinaCheckbox" name="habilidad" value="Medicina" disabled>
+                        <label for="medicinaCheckbox">Medicina:</label>
+                        <span id="bonifMedicina"></span>
+                    </div>
+    
+                    <div class="habilidadPuntual">
+                        <input type="checkbox" id="manejoAnimalesCheckbox" name="habilidad" value="Trato con animales" disabled>
+                        <label for="tratoConAnimalesCheckbox">Trato con animales:</label>
+                        <span id="bonifManejoDeAnimales"></span>
+                    </div>
+    
+                    <div class="habilidadPuntual">
+                        <input type="checkbox" id="supervivenciaCheckbox" name="habilidad" value="Supervivencia" disabled>
+                        <label for="supervivenciaCheckbox">Supervivencia:</label>
+                        <span id="bonifSupervivencia"></span>
+                    </div>
+    
+                    <div class="habilidadPuntual">
+                        <input type="checkbox" id="averiguarIntencionesCheckbox" name="habilidad" value="Perspicacia" disabled>
+                        <label for="averiguarIntencionesCheckbox">Perspicacia:</label>
+                        <span id="bonifAveriguarIntenciones"></span>
+                    </div>
+    
+                    <!-- Carisma -->
+                    <div class="habilidadPuntual">
+                        <input type="checkbox" id="engañoCheckbox" name="habilidad" value="Engaño" disabled>
+                        <label for="engañoCheckbox">Engaño:</label>
+                        <span id="bonifEngaño"></span>
+                    </div>
+    
+                    <div class="habilidadPuntual">
+                        <input type="checkbox" id="intimidacionCheckbox" name="habilidad" value="Intimidación" disabled>
+                        <label for="intimidacionCheckbox">Intimidación:</label>
+                        <span id="bonifIntimidacion"></span>
+                    </div>
+    
+                    <div class="habilidadPuntual">
+                        <input type="checkbox" id="persuasionCheckbox" name="habilidad" value="Persuasión" disabled>
+                        <label for="persuasionCheckbox">Persuasión:</label>
+                        <span id="bonifPersuasion"></span>
+                    </div>
+    
+                </div>
+            </div>
+                
+
+
+                    <input type="file" name="imagen" accept="image/*"><br>
             
 
             <label for="descripcion">Descripción:</label><br>
@@ -192,4 +195,5 @@
     </div>
     <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
     <script type="module" src="{{ url_for('static', filename='js/creacionPersonaje.js') }}"></script>
+    <!-- <script type="module" src="{{ url_for('static', filename='js/actualizaStats.js') }}"></script> -->
 {% endblock %}
