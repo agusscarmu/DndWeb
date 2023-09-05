@@ -247,9 +247,13 @@ $(document).ready(function() {
 
     function increment(inputId) {
         const input = document.getElementById(inputId);
-        if (input.value < limit && puntosTotal > 0) {
-            puntosTotal--;
-            input.value++;
+        if (input.value < limit && puntosTotal > 0 || input.value == "") {
+            if(input.value == ""){
+                input.value = 8;
+            }else{
+                puntosTotal--;
+                input.value++;
+            }
             instanciarBonificadorPuntos(bonusBonificadores[input.value - 1], idPuntos[inputId]);
             actualizarBonificador();
             $("#puntosTotal").text(puntosTotal);

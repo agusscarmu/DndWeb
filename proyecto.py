@@ -17,9 +17,10 @@ mysql = MySQL(app)
 
 
 
-def registrarPersonaje(nombre, raza, subraza, sexo, clase, constitucion, fuerza, destreza, inteligencia, sabiduria, carisma, imagen, descripcion):
-    sql = "INSERT INTO personaje (nombre, raza, subraza, clase, nivel, constitucion, fuerza, destreza, inteligencia, sabiduria, carisma, experiencia, estados, vida, mana, sexo, imagen, descripcion, vidaActual, manaActual) VALUES (%s, %s, %s, %s, 1, %s, %s, %s, %s, %s, %s, 0, 'Normal', 100, 100, %s, %s, %s, 100, 100)"
-    val = (nombre, raza, subraza, clase, constitucion, fuerza, destreza, inteligencia, sabiduria, carisma, sexo ,imagen, descripcion)
+def registrarPersonaje(nombre, raza, subraza, sexo, clase, constitucion, fuerza, destreza, inteligencia, sabiduria, carisma, imagen, descripcion, dado):
+    sql = "INSERT INTO personaje (nombre, raza, subraza, clase, nivel, constitucion, fuerza, destreza, inteligencia, sabiduria, carisma, experiencia, estados, vida, sexo, imagen, descripcion, vidaActual, dado) VALUES (%s, %s, %s, %s, 1, %s, %s, %s, %s, %s, %s, 0, 'Normal', %s, %s, %s, %s, %s, %s)"
+    
+    val = (nombre, raza, subraza, clase, constitucion, fuerza, destreza, inteligencia, sabiduria, carisma, dado+((int(constitucion)-10)/2),sexo ,imagen, descripcion, dado+((int(constitucion)-10)/2), dado)
     cur = mysql.connection.cursor()
     cur.execute(sql, val)
     mysql.connection.commit()
@@ -98,11 +99,12 @@ def add_personaje():
         carisma = request.form['carisma']
         descripcion = request.form['descripcion']
         imagen = request.files['imagen']
+        dado = clases.get(clase).get("dadoVida")
         if imagen.filename!='':
             imagen.save(os.path.join(app.root_path, 'static\imagenesPersonajes', imagen.filename))
         else:
             imagen.filename = None
-        return registrarPersonaje(nombre, raza, subraza, sexo, clase, constitucion, fuerza, destreza, inteligencia, sabiduria, carisma, imagen.filename, descripcion)
+        return registrarPersonaje(nombre, raza, subraza, sexo, clase, constitucion, fuerza, destreza, inteligencia, sabiduria, carisma, imagen.filename, descripcion, dado)
 
 
 def pj(data):
@@ -122,12 +124,10 @@ def pj(data):
         "experiencia": data[0][12],
         "estados": data[0][13],
         "vida": data[0][14],
-        "mana": data[0][15],
-        "sexo": data[0][16],
-        "imagen": data[0][17],
-        "descripcion": data[0][18],
-        "vidaActual": data[0][19],
-        "manaActual": data[0][20]
+        "sexo": data[0][15],
+        "imagen": data[0][16],
+        "descripcion": data[0][17],
+        "vidaActual": data[0][18],
     }
     return personaje
 
@@ -152,12 +152,10 @@ def personajesData(data):
             "experiencia": i[12],
             "estados": i[13],
             "vida": i[14],
-            "mana": i[15],
-            "sexo": i[16],
-            "imagen": i[17],
-            "descripcion": i[18],
-            "vidaActual": i[19],
-            "manaActual": i[20]
+            "sexo": i[15],
+            "imagen": i[16],
+            "descripcion": i[17],
+            "vidaActual": i[18],
         }
         personajes.append(personaje)
     return personajes
@@ -254,7 +252,8 @@ def eliminar():
     cur = mysql.connection.cursor()
     cur.execute('SELECT * FROM personaje')
     data = cur.fetchall()
-    return render_template('eliminar.html', personajes = data)
+    personajes = personajesData(data)
+    return render_template('eliminar.html', personajes = personajes)
 
 @app.route('/eliminar/<id>')
 def eliminarPersonaje(id):

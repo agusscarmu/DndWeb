@@ -10,25 +10,25 @@
                 <div class = "datosPersonajeElim">
                 <div class="imgElim">
 
-                    {% if personaje.17 is not none %}
-                    <img class="imagen" src="{{ url_for('static', filename='imagenesPersonajes/' + personaje.16) }}" height="100%" width="100%">
+                    {% if personaje.imagen is not none %}
+                    <img class="imagen" src="{{ url_for('static', filename='imagenesPersonajes/' + personaje.imagen) }}" height="100%" width="100%">
                         {% else %}
-                        {% if personaje.16 == "masculino" %}
-                        <img class="imagen" src="{{ url_for('static', filename='imagenesPersonajes/' + personaje.2 + 'm.jpg') }}" height="100%" width="100%">
+                        {% if personaje.sexo == "masculino" %}
+                        <img class="imagen" src="{{ url_for('static', filename='imagenesPersonajes/' + personaje.raza + 'm.jpg') }}" height="100%" width="100%">
                         {% else %}
-                        <img class="imagen" src="{{ url_for('static', filename='imagenesPersonajes/' + personaje.2 + 'f.jpg') }}" height="100%" width="100%">
+                        <img class="imagen" src="{{ url_for('static', filename='imagenesPersonajes/' + personaje.raza + 'f.jpg') }}" height="100%" width="100%">
                         {% endif %}
                     {% endif %}
                 </div>
                 <div class="infoPjElim">
 
-                    <h2>{{ personaje.1 }}</h2>
-                    <h2>Raza: {{ personaje.2 }}</h2>
-                    <h2>Clase: {{ personaje.4 }}</h2>
+                    <h2>{{ personaje.nombre }}</h2>
+                    <h2>Raza: {{ personaje.raza }}</h2>
+                    <h2>Clase: {{ personaje.clase }}</h2>
                     <!-- Agrega más detalles del personaje si es necesario -->
                 
                     <div class="botonEliminar">
-                        <a href="eliminar/{{personaje.0}}" data-id="{{personaje.0}}">
+                        <a href="eliminar/{{personaje.id}}" data-id="{{personaje.id}}">
                             Eliminar
                         </a>
                     </div>
